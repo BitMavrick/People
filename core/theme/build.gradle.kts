@@ -7,9 +7,9 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
-android {
-    namespace = "com.bitmavrick.feature.home"
 
+android {
+    namespace = "com.bitmavrick.core.theme"
     compileSdk {
         version = release(Config.COMPILE_SDK_VERSION)
     }

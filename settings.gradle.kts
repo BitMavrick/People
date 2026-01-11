@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "People"
 include(":app")
 include(":feature:home")
+include(":core:theme")
+include(":core:ui")
