@@ -10,16 +10,17 @@ plugins {
 
 android {
     namespace = "com.bitmavrick.people"
+
     compileSdk {
-        version = release(36)
+        version = release(Config.COMPILE_SDK_VERSION)
     }
 
     defaultConfig {
-        applicationId = "com.bitmavrick.people"
-        minSdk = 30
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.APP_ID
+        minSdk = Config.MIN_SDK_VERSION
+        targetSdk = Config.TARGET_SDK_VERSION
+        versionCode = Config.VERSION_CODE
+        versionName = Config.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,7 +34,7 @@ android {
             )
         }
     }
-    
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
