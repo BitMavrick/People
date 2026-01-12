@@ -2,6 +2,7 @@ package com.bitmavrick.core.database.repository
 
 import com.bitmavrick.core.database.domain.repository.PeopleRepository
 import com.bitmavrick.core.database.local.dao.PeopleDao
+import com.bitmavrick.core.database.local.entity.PeopleEntity
 import com.bitmavrick.core.model.People
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,18 +26,52 @@ class PeopleRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertPeople(people: People) {
-        TODO("Not yet implemented")
+        dao.insertPeople(
+            PeopleEntity(
+                id = people.id,
+                name = people.name,
+                age = people.age,
+                gender = people.gender,
+                orderIndex = people.orderIndex
+            )
+        )
     }
 
     override suspend fun updatePeople(people: People) {
-        TODO("Not yet implemented")
+        dao.updatePeople(
+            PeopleEntity(
+                id = people.id,
+                name = people.name,
+                age = people.age,
+                gender = people.gender,
+                orderIndex = people.orderIndex
+            )
+        )
     }
 
     override suspend fun deletePeople(people: People) {
-        TODO("Not yet implemented")
+        dao.deletePeople(
+            PeopleEntity(
+                id = people.id,
+                name = people.name,
+                age = people.age,
+                gender = people.gender,
+                orderIndex = people.orderIndex
+            )
+        )
     }
 
     override suspend fun reorderPeople(people: List<People>) {
-        TODO("Not yet implemented")
+        val reorderedPeople = people.mapIndexed { index, people ->
+            PeopleEntity(
+                id = people.id,
+                name = people.name,
+                age = people.age,
+                gender = people.gender,
+                orderIndex = index.toLong()
+            )
+        }
+
+        dao.reorderPeople(reorderedPeople)
     }
 }
