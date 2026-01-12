@@ -84,7 +84,7 @@ fun HomeScreen(
             onRefresh = { onEvent(HomeUiEvent.Refresh) }
         ) {
             HomeContent(
-                homeUiState = homeUiState,
+                uiState = homeUiState,
                 onEvent = onEvent
             )
         }
