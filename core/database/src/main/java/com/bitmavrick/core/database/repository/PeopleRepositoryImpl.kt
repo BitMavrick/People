@@ -2,7 +2,6 @@ package com.bitmavrick.core.database.repository
 
 import com.bitmavrick.core.database.domain.repository.PeopleRepository
 import com.bitmavrick.core.database.local.dao.PeopleDao
-import com.bitmavrick.core.database.local.entity.PeopleEntity
 import com.bitmavrick.core.database.local.mapper.asEntity
 import com.bitmavrick.core.database.local.mapper.asExternalModel
 import com.bitmavrick.core.model.People
