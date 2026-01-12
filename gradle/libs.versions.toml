@@ -38,6 +38,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
+androidx-material-icon-extended = { group = "androidx.compose.material", name = "material-icons-extended-android" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
