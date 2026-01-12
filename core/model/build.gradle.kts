@@ -5,13 +5,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.bitmavrick.core.database"
-    
+    namespace = "com.bitmavrick.core.model"
     compileSdk {
         version = release(36)
     }
@@ -47,15 +44,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
-
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
