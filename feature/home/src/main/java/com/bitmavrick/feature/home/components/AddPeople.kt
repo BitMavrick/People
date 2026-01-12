@@ -18,9 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.bitmavrick.core.model.GenderType
+import com.bitmavrick.core.model.People
+import com.bitmavrick.feature.home.HomeUiEvent
 
 @Composable
 fun AddPeopleDialog(
+    onEvent: (HomeUiEvent) -> Unit,
     onDismiss: () -> Unit
 ) {
     val name = remember { mutableStateOf("") }
@@ -47,7 +51,6 @@ fun AddPeopleDialog(
                 OutlinedTextField(
                     value = age.value,
                     onValueChange = {
-                        // 👇 Allow only digits
                         if (it.all { char -> char.isDigit() }) {
                             age.value = it
                         }
@@ -63,7 +66,15 @@ fun AddPeopleDialog(
         confirmButton = {
             Button(
                 onClick = {
-                    age.value.toIntOrNull()
+                    val newPeople = People(
+                        name = name.value,
+                        age = age.value.toInt(),
+                        gender = GenderType.MALE,
+                        orderIndex = 0
+                    )
+
+                    onEvent(HomeUiEvent.AddNewPeople(newPeople))
+                    onDismiss()
                 }
             ) {
                 Text("Save")
@@ -76,6 +87,7 @@ fun AddPeopleDialog(
 @Composable
 private fun AddPeopleDialogPreview(){
     AddPeopleDialog(
+        onEvent = {},
         onDismiss = {}
     )
 }

@@ -96,6 +96,7 @@ fun HomeScreen(
 
         if(showAddPeopleDialog.value){
             AddPeopleDialog(
+                onEvent = onEvent,
                 onDismiss = { showAddPeopleDialog.value = false }
             )
         }
