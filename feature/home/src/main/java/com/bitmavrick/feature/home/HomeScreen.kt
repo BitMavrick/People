@@ -1,6 +1,5 @@
 package com.bitmavrick.feature.home
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -16,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -28,6 +28,13 @@ fun HomeScreen(
     onEvent: (HomeUiEvent) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(homeUiState.userMessage) {
+        if (homeUiState.userMessage != null) {
+            snackbarHostState.showSnackbar(homeUiState.userMessage)
+            onEvent(HomeUiEvent.UserMessageShown)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -73,8 +80,8 @@ fun HomeScreen(
     ) {
         PullToRefreshBox(
             modifier = Modifier.padding(it),
-            isRefreshing = !homeUiState.isLoading,
-            onRefresh = {}
+            isRefreshing = homeUiState.isLoading,
+            onRefresh = { onEvent(HomeUiEvent.Refresh) }
         ) {
             HomeContent(
                 homeUiState = homeUiState,

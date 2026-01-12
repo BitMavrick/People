@@ -7,5 +7,6 @@ sealed class HomeUiEvent {
     data class UpdatePeople(val people: People) : HomeUiEvent()
     data class DeletePeople(val people: People) : HomeUiEvent()
     data class ReorderPeople(val people: List<People>) : HomeUiEvent()
+    object Refresh : HomeUiEvent()
     object UserMessageShown : HomeUiEvent()
 }

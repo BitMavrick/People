@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.bitmavrick.core.database.domain.repository.PeopleRepository
 import com.bitmavrick.core.model.People
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -43,6 +44,7 @@ class HomeViewModel @Inject constructor(
             is HomeUiEvent.UpdatePeople -> updatePeople(event.people)
             is HomeUiEvent.DeletePeople -> deletePeople(event.people)
             is HomeUiEvent.ReorderPeople -> reorderPeople(event.people)
+            is HomeUiEvent.Refresh -> refresh()
             is HomeUiEvent.UserMessageShown -> userMessageShown()
         }
     }
@@ -97,6 +99,21 @@ class HomeViewModel @Inject constructor(
                 _userMessage.update { "List reordered successfully" }
             } catch (e: Exception) {
                 _userMessage.update { "Error reordering people: ${e.message}" }
+            } finally {
+                _isLoading.update { false }
+            }
+        }
+    }
+
+    private fun refresh() {
+        viewModelScope.launch {
+            _isLoading.update { true }
+            try {
+                // Simulate a network refresh or check for updates
+                delay(1000)
+                _userMessage.update { "Refreshed successfully" }
+            } catch (e: Exception) {
+                _userMessage.update { "Error refreshing: ${e.message}" }
             } finally {
                 _isLoading.update { false }
             }
