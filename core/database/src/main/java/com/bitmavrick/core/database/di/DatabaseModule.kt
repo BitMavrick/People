@@ -17,7 +17,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(
+    internal fun provideDatabase(
         @ApplicationContext context: Context
     ): AppDatabase {
         return Room.databaseBuilder(
@@ -28,5 +28,5 @@ class DatabaseModule {
     }
 
     @Provides
-    fun providePeopleDao(db: AppDatabase): PeopleDao = db.peopleDao()
+    internal fun providePeopleDao(db: AppDatabase): PeopleDao = db.peopleDao()
 }

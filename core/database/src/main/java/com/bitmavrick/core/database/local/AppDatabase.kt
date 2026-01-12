@@ -9,6 +9,6 @@ import com.bitmavrick.core.database.local.converters.GenderConverter
 
 @Database(entities = [PeopleEntity::class], version = 1, exportSchema = false)
 @TypeConverters(GenderConverter::class)
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class AppDatabase : RoomDatabase() {
     abstract fun peopleDao(): PeopleDao
 }

@@ -11,7 +11,7 @@ import com.bitmavrick.core.database.local.entity.PeopleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PeopleDao {
+internal interface PeopleDao {
     @Query("SELECT * FROM People ORDER BY orderIndex ASC")
     fun getAllPeople(): Flow<List<PeopleEntity>>
 
@@ -19,7 +19,7 @@ interface PeopleDao {
     suspend fun insertPeople(people: PeopleEntity)
 
     @Update
-    suspend fun updatePeople(peopleDao: PeopleEntity)
+    suspend fun updatePeople(peopleEntity: PeopleEntity)
 
     @Delete
     suspend fun deletePeople(people: PeopleEntity)

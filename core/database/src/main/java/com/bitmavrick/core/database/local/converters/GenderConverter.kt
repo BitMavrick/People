@@ -3,7 +3,7 @@ package com.bitmavrick.core.database.local.converters
 import androidx.room.TypeConverter
 import com.bitmavrick.core.model.GenderType
 
-class GenderConverter {
+internal class GenderConverter {
 
     @TypeConverter
     fun fromGenderType(gender: GenderType): String {

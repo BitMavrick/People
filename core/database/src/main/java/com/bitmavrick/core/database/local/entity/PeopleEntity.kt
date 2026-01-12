@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.bitmavrick.core.model.GenderType
 
 @Entity(tableName = "People")
-data class PeopleEntity (
+internal data class PeopleEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val name: String,
