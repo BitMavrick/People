@@ -16,9 +16,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.bitmavrick.feature.home.components.AddPeopleDialog
 import com.bitmavrick.feature.home.components.HomeContent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,6 +31,8 @@ fun HomeScreen(
     onEvent: (HomeUiEvent) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val showAddPeopleDialog = rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(homeUiState.userMessage) {
         if (homeUiState.userMessage != null) {
@@ -59,7 +64,7 @@ fun HomeScreen(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = {
-                    // * Code from here
+                    showAddPeopleDialog.value = true
                 },
                 icon = {
                     Icon(
@@ -86,6 +91,12 @@ fun HomeScreen(
             HomeContent(
                 uiState = homeUiState,
                 onEvent = onEvent
+            )
+        }
+
+        if(showAddPeopleDialog.value){
+            AddPeopleDialog(
+                onDismiss = { showAddPeopleDialog.value = false }
             )
         }
     }
