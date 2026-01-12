@@ -18,7 +18,12 @@ fun HomeContent(
         modifier = Modifier.fillMaxSize()
     ) {
         item {
-            Text("Hello world")
+            if(homeUiState.isLoading){
+                Text("Loading ...")
+            }else{
+                Text("not loading")
+            }
+
         }
     }
 }

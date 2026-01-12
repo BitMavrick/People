@@ -13,6 +13,7 @@ import com.bitmavrick.feature.home.HomeScreen
 import com.bitmavrick.feature.home.HomeViewModel
 import com.bitmavrick.people.ui.theme.PeopleTheme
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.runtime.collectAsState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen(
-                        homeUiState = homeViewModel.uiState.value,
+                        homeUiState = homeViewModel.uiState.collectAsState().value,
                         onEvent = homeViewModel::onEvent
                     )
                 }

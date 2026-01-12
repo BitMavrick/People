@@ -109,7 +109,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.update { true }
             try {
-                // Simulate a network refresh or check for updates
                 delay(1000)
                 _userMessage.update { "Refreshed successfully" }
             } catch (e: Exception) {
