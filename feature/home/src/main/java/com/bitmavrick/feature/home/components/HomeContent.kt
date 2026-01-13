@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.bitmavrick.core.model.People
 import com.bitmavrick.feature.home.HomeUiState
 
 @Composable
@@ -40,7 +41,7 @@ fun HomeContent(
             }
         }
     } else {
-        val showDescriptionCard = rememberSaveable { mutableStateOf(false) }
+        val showPersonDescription = rememberSaveable { mutableStateOf<People?>(null) }
 
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
@@ -49,22 +50,22 @@ fun HomeContent(
                 PeopleCard(
                     people = uiState.people[it],
                     onClickCard = {
-                       showDescriptionCard.value = true
+                        showPersonDescription.value = uiState.people[it]
                     },
                     onDrag = { /*TODO*/ }
                 )
-
-                if(showDescriptionCard.value){
-                    PersonDescriptionModal(
-                        people = uiState.people[it],
-                        onDismiss = {
-                            showDescriptionCard.value = false
-                        },
-                        onEdit = {},
-                        onDelete = {}
-                    )
-                }
             }
+        }
+
+        showPersonDescription.value?.let { person ->
+            PersonDescriptionModal(
+                people = person,
+                onDismiss = {
+                    showPersonDescription.value = null
+                },
+                onEdit = {},
+                onDelete = {}
+            )
         }
     }
 }
