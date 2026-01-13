@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.bitmavrick.feature.home.components.AddPeopleDialog
 import com.bitmavrick.feature.home.components.HomeContent
+import com.bitmavrick.feature.home.components.PersonDescriptionModal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -89,8 +90,7 @@ fun HomeScreen(
             onRefresh = { onEvent(HomeUiEvent.Refresh) }
         ) {
             HomeContent(
-                uiState = homeUiState,
-                onEvent = onEvent
+                uiState = homeUiState
             )
         }
 

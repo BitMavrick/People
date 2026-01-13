@@ -1,5 +1,6 @@
 package com.bitmavrick.feature.home.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +28,9 @@ fun PeopleCard(
     onDrag: () -> Unit
 ) {
     OutlinedCard(
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
+        modifier = Modifier.fillMaxWidth().padding(8.dp).clickable(
+            onClick = onClickCard
+        )
     ) {
         Row(
             modifier = Modifier.padding(8.dp),

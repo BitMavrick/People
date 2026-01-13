@@ -6,17 +6,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.bitmavrick.feature.home.HomeUiEvent
 import com.bitmavrick.feature.home.HomeUiState
 
 @Composable
 fun HomeContent(
-    uiState: HomeUiState,
-    onEvent: (HomeUiEvent) -> Unit
+    uiState: HomeUiState
 ) {
     if(uiState.isLoading && uiState.people.isEmpty()){ // * Loading state
         LazyColumn(
@@ -39,16 +39,31 @@ fun HomeContent(
                 Text("No crowed here!")
             }
         }
-    } else {  // * Success state
+    } else {
+        val showDescriptionCard = rememberSaveable { mutableStateOf(false) }
+
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
         ) {
             items(uiState.people.size) {
                 PeopleCard(
                     people = uiState.people[it],
-                    onClickCard = { /*TODO*/ },
+                    onClickCard = {
+                       showDescriptionCard.value = true
+                    },
                     onDrag = { /*TODO*/ }
                 )
+
+                if(showDescriptionCard.value){
+                    PersonDescriptionModal(
+                        people = uiState.people[it],
+                        onDismiss = {
+                            showDescriptionCard.value = false
+                        },
+                        onEdit = {},
+                        onDelete = {}
+                    )
+                }
             }
         }
     }
@@ -58,7 +73,6 @@ fun HomeContent(
 @Composable
 private fun HomeContentPreview(){
     HomeContent(
-        uiState = HomeUiState(),
-        onEvent = {}
+        uiState = HomeUiState()
     )
 }
