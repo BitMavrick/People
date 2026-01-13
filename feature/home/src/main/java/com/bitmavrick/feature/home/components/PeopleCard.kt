@@ -22,7 +22,9 @@ import com.bitmavrick.core.model.People
 
 @Composable
 fun PeopleCard(
-    people: People
+    people: People,
+    onClickCard: () -> Unit,
+    onDrag: () -> Unit
 ) {
     OutlinedCard(
         modifier = Modifier.fillMaxWidth().padding(8.dp)
@@ -80,6 +82,8 @@ private fun PeoplePreview(){
     )
 
     PeopleCard(
-        people = aPeople
+        people = aPeople,
+        onClickCard = {},
+        onDrag = {}
     )
 }

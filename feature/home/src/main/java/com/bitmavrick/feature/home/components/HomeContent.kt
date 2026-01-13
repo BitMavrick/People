@@ -44,7 +44,11 @@ fun HomeContent(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
         ) {
             items(uiState.people.size) {
-                PeopleCard(uiState.people[it])
+                PeopleCard(
+                    people = uiState.people[it],
+                    onClickCard = { /*TODO*/ },
+                    onDrag = { /*TODO*/ }
+                )
             }
         }
     }
