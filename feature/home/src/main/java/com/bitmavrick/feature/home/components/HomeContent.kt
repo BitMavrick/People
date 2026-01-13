@@ -13,11 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.bitmavrick.core.model.People
+import com.bitmavrick.feature.home.HomeUiEvent
 import com.bitmavrick.feature.home.HomeUiState
 
 @Composable
 fun HomeContent(
-    uiState: HomeUiState
+    uiState: HomeUiState,
+    onEvent: (HomeUiEvent) -> Unit,
 ) {
     if(uiState.isLoading && uiState.people.isEmpty()){ // * Loading state
         LazyColumn(
@@ -60,11 +62,10 @@ fun HomeContent(
         showPersonDescription.value?.let { person ->
             PersonDescriptionModal(
                 people = person,
+                onEvent = onEvent,
                 onDismiss = {
                     showPersonDescription.value = null
-                },
-                onEdit = {},
-                onDelete = {}
+                }
             )
         }
     }
@@ -74,6 +75,7 @@ fun HomeContent(
 @Composable
 private fun HomeContentPreview(){
     HomeContent(
-        uiState = HomeUiState()
+        uiState = HomeUiState(),
+        onEvent = {}
     )
 }

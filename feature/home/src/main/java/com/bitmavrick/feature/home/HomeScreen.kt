@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.bitmavrick.feature.home.components.AddPeopleDialog
 import com.bitmavrick.feature.home.components.HomeContent
-import com.bitmavrick.feature.home.components.PersonDescriptionModal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +31,6 @@ fun HomeScreen(
     onEvent: (HomeUiEvent) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-
     val showAddPeopleDialog = rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(homeUiState.userMessage) {
@@ -90,7 +88,8 @@ fun HomeScreen(
             onRefresh = { onEvent(HomeUiEvent.Refresh) }
         ) {
             HomeContent(
-                uiState = homeUiState
+                uiState = homeUiState,
+                onEvent = onEvent
             )
         }
 

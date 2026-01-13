@@ -17,6 +17,8 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -25,15 +27,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bitmavrick.core.model.GenderType
 import com.bitmavrick.core.model.People
+import com.bitmavrick.feature.home.HomeUiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonDescriptionModal(
     people: People,
-    onDismiss: () -> Unit,
-    onEdit: () -> Unit,
-    onDelete: () -> Unit
+    onEvent: (HomeUiEvent) -> Unit,
+    onDismiss: () -> Unit
 ) {
+    val showDeleteDialog = rememberSaveable { mutableStateOf(false) }
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         dragHandle = null,
@@ -95,12 +99,25 @@ fun PersonDescriptionModal(
 
                 Button(
                     modifier = Modifier.weight(1f),
-                    onClick = {}
+                    onClick = {
+                        showDeleteDialog.value = true
+                    }
                 ) {
                     Text("Delete")
                 }
             }
         }
+    }
+
+    if(showDeleteDialog.value){
+        DeleteDialog(
+            people = people,
+            onDismiss = { showDeleteDialog.value = false },
+            onConfirm = {
+                onEvent(HomeUiEvent.DeletePeople(it))
+                onDismiss()
+            }
+        )
     }
 }
 
@@ -116,8 +133,7 @@ fun PersonDescriptionModalPreview(){
 
     PersonDescriptionModal(
         people = aPeople,
-        onDismiss = {},
-        onEdit = {},
-        onDelete = {}
+        onEvent = {},
+        onDismiss = {}
     )
 }
