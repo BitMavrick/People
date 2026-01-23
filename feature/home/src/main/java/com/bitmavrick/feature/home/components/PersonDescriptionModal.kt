@@ -37,6 +37,7 @@ fun PersonDescriptionModal(
     onDismiss: () -> Unit
 ) {
     val showDeleteDialog = rememberSaveable { mutableStateOf(false) }
+    val showUpdateDialog = rememberSaveable { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -90,7 +91,9 @@ fun PersonDescriptionModal(
             ) {
                 OutlinedButton(
                     modifier = Modifier.weight(1f),
-                    onClick = {}
+                    onClick = {
+                        showUpdateDialog.value = true
+                    }
                 ) {
                     Text("Update")
                 }
@@ -116,6 +119,17 @@ fun PersonDescriptionModal(
             onConfirm = {
                 onEvent(HomeUiEvent.DeletePeople(it))
                 onDismiss()
+            }
+        )
+    }
+
+    if(showUpdateDialog.value){
+        UpdatePeopleDialog(
+            people = people,
+            onEvent = onEvent,
+            onDismiss = {
+                showUpdateDialog.value = false
+                onDismiss() // Close modal after update
             }
         )
     }
