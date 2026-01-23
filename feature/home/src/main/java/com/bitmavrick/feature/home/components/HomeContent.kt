@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -21,7 +22,7 @@ fun HomeContent(
     uiState: HomeUiState,
     onEvent: (HomeUiEvent) -> Unit,
 ) {
-    if(uiState.isLoading && uiState.people.isEmpty()){ // * Loading state
+    if(uiState.isLoading && uiState.people.isEmpty()){
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -31,8 +32,7 @@ fun HomeContent(
                 Text("Finding peoples ...")
             }
         }
-    } else if(!uiState.isLoading && uiState.people.isEmpty()){ // * Empty state
-        // * Empty
+    } else if(!uiState.isLoading && uiState.people.isEmpty()){
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -48,11 +48,15 @@ fun HomeContent(
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp)
         ) {
-            items(uiState.people.size) {
+            items(
+                items = uiState.people,
+                key = { it.id }
+            ) { person ->
                 PeopleCard(
-                    people = uiState.people[it],
+                    modifier = Modifier.animateItem(),
+                    people = person,
                     onClickCard = {
-                        showPersonDescription.value = uiState.people[it]
+                        showPersonDescription.value = person
                     },
                     onDrag = { /*TODO*/ }
                 )

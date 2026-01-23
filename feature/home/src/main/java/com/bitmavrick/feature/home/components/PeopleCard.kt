@@ -25,10 +25,11 @@ import com.bitmavrick.core.model.People
 fun PeopleCard(
     people: People,
     onClickCard: () -> Unit,
-    onDrag: () -> Unit
+    onDrag: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     OutlinedCard(
-        modifier = Modifier.fillMaxWidth().padding(8.dp).clickable(
+        modifier = modifier.fillMaxWidth().padding(8.dp).clickable(
             onClick = onClickCard
         )
     ) {
