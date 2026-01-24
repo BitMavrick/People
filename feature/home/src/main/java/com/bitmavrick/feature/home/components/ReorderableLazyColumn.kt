@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -91,9 +92,10 @@ fun <T> ReorderableLazyColumn(
             val isDragging = index == draggingItemIndex
             val elevation by animateDpAsState(if (isDragging) 8.dp else 0.dp)
             
-            val dragModifier = Modifier.pointerInput(Unit) {
+            val currentItemIndex by rememberUpdatedState(index)
+            val dragModifier = Modifier.pointerInput(item) {
                 detectDragGesturesAfterLongPress(
-                    onDragStart = { draggingItemIndex = index },
+                    onDragStart = { draggingItemIndex = currentItemIndex },
                     onDrag = { change, dragAmount ->
                         change.consume()
                         onDrag(dragAmount.y)

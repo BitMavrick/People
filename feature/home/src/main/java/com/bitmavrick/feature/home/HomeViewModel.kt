@@ -53,7 +53,10 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _isLoading.update { true }
             try {
-                peopleRepository.insertPeople(people)
+                val currentPeople = uiState.value.people
+                val maxOrderIndex = currentPeople.maxOfOrNull { it.orderIndex } ?: -1L
+                val peopleWithCorrectIndex = people.copy(orderIndex = maxOrderIndex + 1)
+                peopleRepository.insertPeople(peopleWithCorrectIndex)
                 _userMessage.update { "Person added successfully" }
             } catch (e: Exception) {
                 _userMessage.update { "Error adding person: ${e.message}" }
