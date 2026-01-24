@@ -62,11 +62,16 @@ fun PeopleCard(
                 )
             }
 
-            Icon(
-                imageVector = Icons.Outlined.DragHandle,
-                contentDescription = "Drag to reorder",
-                modifier = dragHandleModifier.padding(8.dp)
-            )
+            IconButton(
+                modifier = dragHandleModifier,
+                onClick = {}
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.DragHandle,
+                    contentDescription = "Drag to reorder",
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }
