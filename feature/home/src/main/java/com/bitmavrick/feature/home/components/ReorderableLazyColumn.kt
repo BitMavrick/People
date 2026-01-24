@@ -30,6 +30,7 @@ fun <T> ReorderableLazyColumn(
     items: List<T>,
     onReorder: (List<T>) -> Unit,
     modifier: Modifier = Modifier,
+    key: ((T) -> Any)? = null,
     state: LazyListState = rememberLazyListState(),
     itemContent: @Composable LazyItemScope.(item: T, index: Int, dragModifier: Modifier) -> Unit
 ) {
@@ -83,7 +84,10 @@ fun <T> ReorderableLazyColumn(
         modifier = modifier,
         state = state
     ) {
-        itemsIndexed(list) { index, item ->
+        itemsIndexed(
+            items = list,
+            key = key?.let { k -> { _, item -> k(item) } }
+        ) { index, item ->
             val isDragging = index == draggingItemIndex
             val elevation by animateDpAsState(if (isDragging) 8.dp else 0.dp)
             

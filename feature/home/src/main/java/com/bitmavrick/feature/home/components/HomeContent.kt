@@ -47,6 +47,7 @@ fun HomeContent(
         ReorderableLazyColumn(
             modifier = Modifier.fillMaxSize().padding(horizontal = 8.dp),
             items = uiState.people,
+            key = { it.id },
             onReorder = { reorderedList ->
                 onEvent(HomeUiEvent.ReorderPeople(reorderedList))
             }
