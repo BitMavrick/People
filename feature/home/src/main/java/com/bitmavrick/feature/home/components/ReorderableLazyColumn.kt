@@ -90,7 +90,6 @@ fun <T> ReorderableLazyColumn(
             key = key?.let { k -> { _, item -> k(item) } }
         ) { index, item ->
             val isDragging = index == draggingItemIndex
-            val elevation by animateDpAsState(if (isDragging) 8.dp else 0.dp)
             
             val currentItemIndex by rememberUpdatedState(index)
             val dragModifier = Modifier.pointerInput(item) {
@@ -117,10 +116,10 @@ fun <T> ReorderableLazyColumn(
                     .zIndex(if (isDragging) 1f else 0f)
                     .graphicsLayer {
                         translationY = if (isDragging) dragOffset else 0f
-                        scaleX = if (isDragging) 1.05f else 1.0f
-                        scaleY = if (isDragging) 1.05f else 1.0f
                     }
-                    .animateItem()
+                    .let {
+                        if (isDragging) it else it.animateItem()
+                    }
             ) {
                 itemContent(item, index, dragModifier)
             }
