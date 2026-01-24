@@ -25,8 +25,8 @@ import com.bitmavrick.core.model.People
 fun PeopleCard(
     people: People,
     onClickCard: () -> Unit,
-    onDrag: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    dragHandleModifier: Modifier = Modifier,
 ) {
     OutlinedCard(
         modifier = modifier.fillMaxWidth().padding(8.dp).clickable(
@@ -62,15 +62,11 @@ fun PeopleCard(
                 )
             }
 
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.DragHandle,
-                    contentDescription = null,
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
+            Icon(
+                imageVector = Icons.Outlined.DragHandle,
+                contentDescription = "Drag to reorder",
+                modifier = dragHandleModifier.padding(8.dp)
+            )
         }
     }
 }
@@ -88,6 +84,5 @@ private fun PeoplePreview(){
     PeopleCard(
         people = aPeople,
         onClickCard = {},
-        onDrag = {}
     )
 }
